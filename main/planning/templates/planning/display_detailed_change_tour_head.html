@@ -1,0 +1,23 @@
+<form>
+  {% csrf_token %}
+    <table align="right" style="color: #CFCFCF;">
+      <tr>
+        <td align="left">Autre tournée à visualiser : </td>
+        {% if tour_name == "Préfecture" %}
+          <td><i><input type="hidden" name="nom_tournee" value="Le Village">Le Village</i></td>
+        {% else %}
+          <td><i><input type="hidden" name="nom_tournee" value="Préfecture">Préfecture</i></td>
+        {% endif %}
+        <td><input type="hidden" name="date_search" value="{{ date }}"></td>
+        <td>
+          <button class="primary btn-secondary form-control"
+            hx-post="{% url 'planning:display_tour' %}"
+            hx-target="#view_tour"
+            hx-swap="innerHTML"
+            type="submit">- Afficher -
+          </button>
+        </td>
+      </tr>
+    </table>
+</form>
+<p><br /><br /></p>

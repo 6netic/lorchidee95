@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block wrapper %}
+  <section class="page-section" id="services">
+    <div class="container">
+      <div class="text-center"><br /><br />
+        <section class="page-section bg-member" id="about">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8 text-center">
+                <p><h1 class="mt-0"><b>Modification du mot de passe</b></h1><br /><br /><br /></p>
+  {% if resp %}
+    {% if resp == "only_former" %}
+                <p align="center" style="color: red;">
+                  <strong>Le nouveau mot de passe n'a pas été retapé correctement.</strong>
+                </p>
+    {% elif resp == "none_of_them" %}
+                <p align="center" style="color: red;">
+                  <strong>L'ancien mot de passe n'est pas correct.</strong>
+                </p>
+    {% elif resp == "error_in_data" %}
+                <p align="center" style="color: red;">
+                  <strong>Une erreur s'est produite. Veuillez recommencer.</strong>
+                </p>
+    {% endif %}
+                <div class="col-lg-8 text-center">
+                  <div align="right">
+                    <form action="{% url 'member:modify_password' %}" method="post">
+                    {% csrf_token %}
+                      <div>{{ form.as_p }}</div>
+                      <input type="submit" value="Modifier" />
+                    </form>
+                  </div>
+                </div><br /><br /><br /><br /><br /><br />
+  {% elif resp_ok %}
+                <p align="center" style="color: green;">
+                  <strong>Votre mot de passe a bien été modifié.</strong><br /><br /><br /><br /><br /><br />
+                </p>
+  {% endif %}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+<br /><br /><br /><br /><br /><br />
+{% endblock %}

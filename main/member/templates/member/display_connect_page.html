@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block wrapper %}
+  <section class="page-section" id="services">
+    <div class="container">
+      <div class="text-center"><br /><br />
+        <section class="page-section bg-member" id="about">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8 text-center">
+                <p><h1 class="mt-0"><b>Page de connexion</b></h1><br /></p>
+  {% if error %}
+                <p align="center" style="color: red;">
+                  <strong>Utilisatrice inconnue ou mauvais de mot de passe.</strong><br /><br /><br />
+                </p>
+  {% endif %}
+                <div class="col-lg-8 text-center">
+                  <div align="right">
+                    <form action="{% url 'member:connect' %}" method="post">
+                    {% csrf_token %}
+                      <div>{{ form.as_p }}</div>
+                      <input type="submit" value="Connexion" />
+                    </form>
+                  </div>
+                </div><br /><br /><br /><br /><br /><br />
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+<br /><br /><br /><br /><br /><br />
+{% endblock %}

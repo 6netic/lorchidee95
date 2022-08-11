@@ -1,0 +1,274 @@
+
+#disconnect > a:link { color: white; text-decoration: none; }
+#disconnect > a:visited { color: white; }
+#disconnect > a:hover { color: yellow; }
+
+/*--------------------------------------------------------------
+# Custom typos
+--------------------------------------------------------------*/
+@font-face {
+    font-family: "Bison Bold";
+    src: local("Bison-Bold"),
+    url(Bison-Bold.ttf);
+}
+
+.navbar-brand {
+  font-family: "Bison Bold", sans-serif;
+}
+
+.td-insert { padding-top: 3.2em; text-align: left; font-weight: bold;}
+.td-insert-send { padding-top: 2.5em;}
+
+.table-space { padding-top: 3.2em; text-align: left; font-weight: bold; }
+
+/*--------------------------------------------------------------
+# Popups for the Planning
+--------------------------------------------------------------*/
+.popup {
+  position: relative;
+  display: inline-block;
+  /*cursor: pointer;
+  color: #009879;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;*/
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #b1b1b1;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 20px;
+  position:relative;
+  top:-30px;
+
+  /* width: 400px;
+  background-color: #555;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 8px 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -190px;
+  width: 350px;*/
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Popup arrow
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+*/
+/* Add animation (fade in the popup)
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+*/
+/*--------------------------------------------------------------
+# Styled Table for the Planning
+--------------------------------------------------------------*/
+.styled-table {
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    /* margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    width: 60%;
+     */
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th, .styled-table td {
+    /* padding: 12px 15px; */
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: left;
+    font-size: 0.9em;
+    font-family: sans-serif;
+}
+
+.styled-table tbody tr td a:link, .styled-table tbody tr td a:visited,
+.styled-table tbody tr td a:hover, .styled-table tbody tr td a:active{
+    text-decoration: none;
+    color: #009879;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #F5F5DC;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+
+
+
+/*--------------------------------------------------------------
+# Responsive Media Queries
+--------------------------------------------------------------*/
+
+@media (min-width: 768px) {
+  #contact .contact-address,
+  #contact .contact-phone,
+  #contact .contact-email {
+    padding: 20px 0;
+  }
+
+  #contact .contact-phone {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+  }
+  .navbar-brand {
+    margin-left: 20px;
+    margin-right: 100px;
+    font-size: 3em;
+  }
+}
+
+@media (min-width: 992px) {
+  #testimonials .testimonial-item p {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1024px) {
+  #header #logo {
+    padding-left: 60px;
+  }
+
+  #intro p {
+    width: 60%;
+  }
+
+  #intro .carousel-control-prev,
+  #intro .carousel-control-next {
+    width: 5%;
+  }
+
+  #nav-menu-container {
+    padding-right: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 15px;
+  }
+
+  #header #logo h1 {
+    font-size: 28px;
+  }
+
+  #header #logo img {
+    max-height: 40px;
+  }
+
+  #intro h2 {
+    font-size: 28px;
+  }
+
+  #nav-menu-container {
+    display: none;
+  }
+
+  #mobile-nav-toggle {
+    display: inline;
+  }
+  .navbar-brand {
+    margin-left: 20px;
+    margin-right: 0;
+    font-size: 2em;
+  }
+  .nav-menu a {
+    /*padding: 10px 8px 100px 8px;*/
+    max-width: 220px;
+    padding-left: 10px;
+    padding-right: 100px;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 1.3em;
+    text-transform: uppercase;
+    outline: none;
+  }
+
+
+  .styled-table, .styled-table thead, .styled-table tbody, .styled-table th, .styled-table td, .styled-table tr {
+		display: block;
+  }
+  .styled-table thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+  .styled-table tr { border: 1px solid #ccc; }
+  .styled-table td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+  .styled-table td:before {
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+  }
+  .styled-table td:nth-of-type(1):before { content: "Heure"; }
+  .styled-table td:nth-of-type(2):before { content: "Patient"; }
+  .styled-table td:nth-of-type(3):before { content: "Adresse, Tél"; }
+  .styled-table td:nth-of-type(4):before { content: "Cotation, détail séance"; }
+  .styled-table td:nth-of-type(5):before { content: "Dû  assuré"; }
+  .styled-table td:nth-of-type(6):before { content: "Honoraire"; }
+  .styled-table td:nth-of-type(7):before { content: "Fin de traitement"; }
+  .styled-table td:nth-of-type(8):before { content: "Commentaires"; }
+}

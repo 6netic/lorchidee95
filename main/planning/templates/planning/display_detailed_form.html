@@ -1,0 +1,70 @@
+
+<div id="confirmInsert">
+  <!-- sent from display_form/
+       Displays correct actions to perform for the form to be processed correctly -->
+  {% if bad_var %}
+    <span style="color:red;">
+      {% for one_bad_var in bad_var %}
+        {{ one_bad_var }}<br>
+      {% endfor %}
+    </span>
+  {% endif %}
+  <!-- sent from check_variables/
+       Variables sent are correct, just displays a status message -->
+  {% if converted %}
+    <span style="color:grey;">
+      {% for status in converted %}
+        {{ status }}<br>
+      {% endfor %}
+    </span>
+    <form hx-trigger="load"
+          hx-post="{% url 'planning:extract_lines' %}"
+          hx-target="#confirmInsert"
+          hx-swap="innerHTML">
+    {% csrf_token %}
+    </form>
+  {% endif %}
+
+  <!-- sent from extract_lines/
+       Datas from jpg files have been extracted -->
+  {% if extracted %}
+    <span style="color:grey;">
+      {% for status in extracted %}
+        {{ status }}<br>
+      {% endfor %}
+    </span>
+    <form hx-trigger="load delay:2s"
+          hx-post="{% url 'planning:check_date_and_is_registered' %}"
+          hx-target="#confirmInsert"
+          hx-swap="innerHTML">
+    {% csrf_token %}
+    </form>
+  {% endif %}
+
+  <!-- sent from check_date_and_is_registered/
+       Displays date issue error and redirects to display_form/ -->
+  {% if error_in_date %}
+    <span style="color:red;">
+      {% for status in error_in_date %}
+        {{ status }}<br>
+      {% endfor %}
+    </span>
+  {% endif %}
+  {% if already_in %}
+    <span style="color:red;">
+      {{ already_in }}
+    </span>
+  {% endif %}
+  {% if recording_status %}
+    <span style="color:grey;">
+      {{ recording_status }}<br>
+    </span>
+    <form hx-trigger="load delay:2s"
+          hx-post="{% url 'planning:insert_tour' %}"
+          hx-target="#confirmInsert"
+          hx-swap="innerHTML">
+    {% csrf_token %}
+    </form>
+  {% endif %}
+
+</div>

@@ -1,0 +1,54 @@
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Heure</th>
+      <th>Patient</th>
+      <th>Adresse, Tél</th>
+      <th>Cotation, détail séance</th>
+      <th>Dû assuré</th>
+      <th>Honoraire</th>
+      <th>Fin de traitement</th>
+      <th>Commentaires</th>
+      <th></th>
+      <th>Effectuée</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for one in tour_day %}
+    <tr id="line_{{ one.id }}">
+      <input type="hidden" id="id_{{ one.id }}" value="{{ one.id }}">
+    {% if one.traite %}
+      <td style="background-color:#E9E6E6;">{{ one.heure }}</td>
+      <td style="background-color:#E9E6E6;">{{ one.patient }}</td>
+      <td style="background-color:#E9E6E6;">{{ one.addrTel }}</td>
+      <td style="background-color:#E9E6E6;">{{ one.cotation }}</td>
+      <td style="background-color:#E9E6E6;">{{ one.assure }}</td>
+      <td style="background-color:#E9E6E6;">{{ one.honoraire }}</td>
+      <td style="background-color:#E9E6E6;">{{ one.finTraitement }}</td>
+      <td style="background-color:#E9E6E6;">{{ one.commentaires }}</td>
+      <td style="background-color:#E9E6E6;"></td>
+      <td style="background-color:#E9E6E6;color:#B0B0B0;">Terminé</td>
+    {% else %}
+      <td>{{ one.heure }}</td>
+      <td>{{ one.patient }}</td>
+      <td>{{ one.addrTel }}</td>
+      <td>{{ one.cotation }}</td>
+      <td>{{ one.assure }}</td>
+      <td>{{ one.honoraire }}</td>
+      <td>{{ one.finTraitement }}</td>
+      <td id="comment_cell_{{ one.id }}">{{ one.commentaires }}</td>
+      <td id="modif_cell_{{ one.id }}">
+        <button type="button" class="btn btn-outline-success" id="modif_btn_{{ one.id }}"
+          onclick="addComment('id_{{ one.id }}','comment_cell_{{ one.id }}','modif_btn_{{ one.id }}');">Modifier
+        </button>
+      </td>
+      <td id="completed_cell_{{ one.id }}">
+        <button type="button" class="btn btn-outline-success" id="done_btn_{{ one.id }}"
+          onclick="validateLine('id_{{ one.id }}','line_{{ one.id }}',
+                                'modif_cell_{{ one.id }}','completed_cell_{{ one.id }}');">Fait
+        </button></td>
+    {% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

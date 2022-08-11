@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+{% block wrapper %}
+  <section class="page-section" id="services">
+    <div class="container">
+      <div class="text-center"><br /><br />
+        <h3 class="section-subheading text-muted">Insertion du Planning</h3><br /><br />
+          <div id="insertForm" align="center">
+            <form id="formTour" name="formTour">
+              {% csrf_token %}
+              <table>
+                <tr>
+                  <td colspan="2">
+                    <label for="date_tour">Entrez la date de la tournée : </label>
+                      <input type="date" name="date_tour" id="date_tour">
+                  </td>
+                </tr>
+              </table>
+              <!-- First tour -->
+              <table>
+                <tr><td class="td-insert" colspan="2">Première tournée de la journée</td></tr>
+                <tr>
+                  <td align="left"><label for="tour_name1">Nom de la Tournée : </label></td>
+                  <td align="left" id="tour_name1">Préfecture<input type="hidden" name="tour_name1" value="Préfecture"></td>
+                </tr>
+                <tr><td align="left"><label for="nurse1">Nom de l'infirmière : </label></td>
+                  <td align="left">
+                    <select name="nurse1" id="nurse1">
+                    {% for nurse in nurses %}
+                      <option value="{{ nurse.id }}">{{ nurse.fullname }}</option>
+                    {% endfor %}
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left"><label for="pdf_file1">Import fichier PDF : </label></td>
+                  <td align="left"><input type="file" name="pdf_file1" id="pdf_file1" accept="application/pdf"></td>
+                </tr>
+              </table>
+              <!-- Second tour -->
+              <table>
+                <tr><td class="td-insert" colspan="2">Seconde tournée de la journée</td></tr>
+                <tr>
+                  <td align="left"><label for="tour_name1">Nom de la Tournée : </label></td>
+                  <td align="left" id="tour_name2">Le Village<input type="hidden" name="tour_name2" value="Le Village"></td>
+                </tr>
+                <tr><td align="left"><label for="nurse2">Nom de l'infirmière : </label></td>
+                  <td align="left">
+                    <select name="nurse2" id="nurse2">
+                    {% for nurse in nurses %}
+                      <option value="{{ nurse.id }}">{{ nurse.fullname }}</option>
+                    {% endfor %}
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left"><label for="pdf_file2">Import fichier PDF : </label></td>
+                  <td align="left"><input type="file" name="pdf_file2" id="pdf_file2" accept="application/pdf"></td>
+                </tr>
+              </table>
+              <!-- Send button -->
+              <table>
+                <tr>
+                  <td class="sendit"></td>
+                  <td align="left" class="td-insert-send">
+                      <button id="sendBtn" class="primary btn-secondary form-control"
+                              hx-post="{% url 'planning:check_variables' %}"
+                              hx-target="#confirmInsert"
+                              hx-swap="innerHTML"
+                              hx-encoding="multipart/form-data"
+                              type="submit">Enregistrer
+                      </button>
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </div>
+          <p>
+            {% include 'planning/display_detailed_form.html' %}
+          </p>
+      </div>
+    </div>
+  </section>
+{% endblock %}
