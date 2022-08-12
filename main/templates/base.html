@@ -21,10 +21,10 @@
   <!-- Custom CSS -->
   <link href="{% static 'planning/css/styles.css' %}" rel="stylesheet" />
   <!-- htmx -->
-  <script src="https://unpkg.com/htmx.org@1.8.0"
-          integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc"
-          crossorigin="anonymous">
-  </script>
+
+{% block htmx  %}
+
+{% endblock %}
 </head>
 
 <body id="page-top">
@@ -87,6 +87,10 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous">
   </script>
+
+{% block js %}
+
+{% endblock %}
 
 </body>
 </html>

@@ -6,4 +6,3 @@ main/main/settings.py
 main/main/settings_prod.py
 main/planning/process_copy.py
 documents/
-main/planning/static/planning/js/

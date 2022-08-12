@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% block htmx %}
+  <script src="{% static 'planning/js/htmx.min.js' %}"></script>
+{% endblock %}
 {% block wrapper %}
   <section class="page-section" id="services">
     <div class="container">
