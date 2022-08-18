@@ -11,7 +11,7 @@ class Process:
         """ Extracts lines and date from all image files """
 
         # Following line to hide on linux server
-        pytesseract.pytesseract.tesseract_cmd = "C:\Program Files\Tesseract-OCR\\tesseract.exe"
+        # pytesseract.pytesseract.tesseract_cmd = "C:\Program Files\Tesseract-OCR\\tesseract.exe"
         files_list, lines = [], []
         global date
         for file in listdir(img_dir):
