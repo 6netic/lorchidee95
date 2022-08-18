@@ -51,13 +51,21 @@ def check_variables(request):
 def extract_lines(request):
     """ Extract lines from jpg files """
 
-    date_list, lines_list = [], []
-    for img_dir in ["planning/documents/prefecture/", "planning/documents/village/"]:
-        one_date, part_lines = Process().extractLines(img_dir)
-        date_list.append(one_date)
-        lines_list.append(part_lines)
-    globals.date = date_list
-    globals.lines = lines_list
+    # date_list, lines_list = [], []
+    globals.date, globals.lines = [], []
+    # for img_dir in ["planning/documents/prefecture/", "planning/documents/village/"]:
+    #     one_date, part_lines = Process().extractLines(img_dir)
+    #     date_list.append(one_date)
+    #     lines_list.append(part_lines)
+    # Traitement des images dans chacun des rep img de façon séparée
+    date1, lines1 = Process().extractLines("planning/documents/prefecture/")
+    globals.date.append(date1)
+    globals.lines.append(lines1)
+    date2, lines2 = Process().extractLines("planning/documents/village/")
+    globals.date.append(date2)
+    globals.lines.append(lines2)
+    # globals.date = date_list
+    # globals.lines = lines_list
     message = ["Contenu extrait.", "Vérification de la validité des dates..."]
     return render(request, "planning/display_detailed_form.html", context={'extracted': message})
 

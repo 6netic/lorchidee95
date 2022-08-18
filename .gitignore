@@ -6,3 +6,6 @@ main/main/settings.py
 main/main/settings_prod.py
 main/planning/process_copy.py
 documents/
+main/planning/views_save.py
+main/planning/process_save.py
+main/planning/templates/planning/display_detailed_form_save.html
