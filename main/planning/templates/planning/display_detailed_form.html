@@ -24,12 +24,24 @@
     {% csrf_token %}
     </form>
   {% endif %}
-
   <!-- sent from extract_lines/
-       Datas from jpg files have been extracted -->
-  {% if extracted %}
+       One more jpg file has been extracted -->
+  {% if one_file_extracted %}
     <span style="color:grey;">
-      {% for status in extracted %}
+      Fichier <i>{{ one_file_extracted }}</i> extrait...<br>
+    </span>
+    <form hx-trigger="load"
+          hx-post="{% url 'planning:extract_lines' %}"
+          hx-target="#confirmInsert"
+          hx-swap="innerHTML">
+    {% csrf_token %}
+    </form>
+  {% endif %}
+  <!-- sent from extract_lines/
+       All jpg files have been extracted -->
+  {% if all_extracted %}
+    <span style="color:grey;">
+      {% for status in all_extracted %}
         {{ status }}<br>
       {% endfor %}
     </span>
@@ -40,7 +52,6 @@
     {% csrf_token %}
     </form>
   {% endif %}
-
   <!-- sent from check_date_and_is_registered/
        Displays date issue error and redirects to display_form/ -->
   {% if error_in_date %}
@@ -66,5 +77,4 @@
     {% csrf_token %}
     </form>
   {% endif %}
-
 </div>

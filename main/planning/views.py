@@ -7,6 +7,7 @@ from django.http import HttpResponse, JsonResponse
 from django_globals import globals
 from django.utils.html import escape
 from django.contrib.auth.decorators import login_required
+from os import listdir, remove
 
 
 def index(request):
@@ -43,31 +44,45 @@ def check_variables(request):
         globals.tours.converPdf2Jpg(eval_obj['pdf_file1'].name, "planning/documents/prefecture/")
         globals.tours.converPdf2Jpg(eval_obj['pdf_file2'].name, "planning/documents/village/")
         globals.tours.del_pdf_files()
+        # Defining global variables to store dates and lines for next methods
+        globals.date, globals.lines = [], []
         message = ["Fichiers pdf convertis en image jpg.", "Extraction du contenu en cours..."]
         return render(request, "planning/display_detailed_form.html", context={'converted': message})
 
 
 @login_required
 def extract_lines(request):
-    """ Extract lines from jpg files """
+    """ Extract date and text from each page contained in the 2 folders """
 
-    # date_list, lines_list = [], []
-    globals.date, globals.lines = [], []
-    # for img_dir in ["planning/documents/prefecture/", "planning/documents/village/"]:
-    #     one_date, part_lines = Process().extractLines(img_dir)
-    #     date_list.append(one_date)
-    #     lines_list.append(part_lines)
-    # Traitement des images dans chacun des rep img de façon séparée
-    date1, lines1 = Process().extractLines("planning/documents/prefecture/")
-    globals.date.append(date1)
-    globals.lines.append(lines1)
-    date2, lines2 = Process().extractLines("planning/documents/village/")
-    globals.date.append(date2)
-    globals.lines.append(lines2)
-    # globals.date = date_list
-    # globals.lines = lines_list
-    message = ["Contenu extrait.", "Vérification de la validité des dates..."]
-    return render(request, "planning/display_detailed_form.html", context={'extracted': message})
+    # Working first with 'prefecture' directory
+    if len(listdir("planning/documents/prefecture/")) != 0:
+        img_dir = "planning/documents/prefecture/"
+        nurse = globals.tours.nurse1
+        tour = globals.tours.tour_name1
+    # While 'pref' dir is empty, working with 'village' directory
+    else:
+        img_dir = "planning/documents/village/"
+        nurse = globals.tours.nurse2
+        tour = globals.tours.tour_name2
+    directory_list = []
+    if len(listdir(img_dir)) != 0:
+        for file in listdir(img_dir):
+            directory_list.append(file)
+        files_list = sorted(directory_list, key=lambda x: int(x[-5:-4]))
+        # If this is the first page (0) then we extract the date as well
+        if int(files_list[0][-5:-4]) == 0:
+            date, lines = Process().extractText(img_dir, files_list[0], nurse, tour)
+            globals.date.append(date)
+        else:
+            lines = Process().extractText(img_dir, files_list[0], nurse, tour)
+        for one in lines:
+            globals.lines.append(one)
+        message = files_list[0]
+        remove(img_dir + files_list[0])
+        return render(request, "planning/display_detailed_form.html", context={'one_file_extracted': message})
+    else:
+        message = ["L'intégralité du texte a été extrait.", "Vérification de la validité des dates..."]
+        return render(request, "planning/display_detailed_form.html", context={'all_extracted': message})
 
 
 @login_required
@@ -91,25 +106,24 @@ def check_date_and_is_registered(request):
 
 @login_required
 def insert_tour(request):
-    """ Inserts datas in the database """
+    """ Inserts datas into the database """
 
-    nurses_list = [globals.tours.nurse1, globals.tours.nurse2]
-    tours_list = [globals.tours.tour_name1, globals.tours.tour_name2]
-    for i in range(2):
-        for line in globals.lines[i]:
-            new_entry = Tour.objects.create(
-                nurse=Nurse.objects.get(id=int(nurses_list[i])),
-                jour=globals.tours.date_tour,
-                heure=line[0],
-                patient=line[1],
-                addrTel=line[2],
-                cotation=line[3],
-                assure=line[4],
-                honoraire=line[5],
-                finTraitement=line[6],
-                commentaires=" ",
-                nomTournee=tours_list[i]
-            )
+    # for line in globals.lines:
+    #     print(line)
+    for line in globals.lines:
+        new_entry = Tour.objects.create(
+            nurse=Nurse.objects.get(id=int(line[7])),
+            jour=globals.tours.date_tour,
+            heure=line[0],
+            patient=line[1],
+            addrTel=line[2],
+            cotation=line[3],
+            assure=line[4],
+            honoraire=line[5],
+            finTraitement=line[6],
+            commentaires="",
+            nomTournee=line[8]
+        )
     return HttpResponse("<span style='color:green;'>Enregistrement de la tournée effectué avec succès !</span>")
 
 

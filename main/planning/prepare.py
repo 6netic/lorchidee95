@@ -29,10 +29,11 @@ class Prepare:
             mkdir(self.vill_dir)
 
         except FileExistsError:
-            for directory in [self.pref_dir, self.vill_dir]:
-                for file in listdir(directory):
-                    file = path.join(directory, file)
-                    remove(file)
+            pass
+            # for directory in [self.pref_dir, self.vill_dir]:
+            #     for file in listdir(directory):
+            #         file = path.join(directory, file)
+            #         remove(file)
 
 
     def saveOnLocal(self, files_list):
